@@ -10,45 +10,14 @@ import singleRooms from "../assets/single_rooms.png";
 import forProfessionals from "../assets/for_professionals.png";
 
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "./Navbar";
 
 export default function LandingPage() {
 
     const navigate = useNavigate();
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
-      <header className="bg-red-600 text-white py-3 sticky top-0 z-30 shadow">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl font-bold">FindPG</span>
-          </div>
-          <nav className="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="#" className="hover:text-gray-200">
-              Buy
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Rent
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              PG
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Commercial
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Help
-            </a>
-          </nav>
-          <div>
-            <button className="ml-4 bg-white text-red-600 px-4 py-1.5 rounded-md text-sm font-medium">
-              Post Property
-            </button>
-            <button onClick={() => navigate("/login")} className="ml-4 bg-white hover:cursor-pointer text-red-600 px-4 py-1.5 rounded-md text-sm font-medium">
-              Login
-            </button>
-          </div>
-        </div>
-      </header>
+      <Navbar/>
 
       {/* Hero Section */}
       <section className="bg-gray-50 py-12">
