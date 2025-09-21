@@ -1,45 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
 
 export default function Explore() {
-  const listings = [
-    {
-      id: 1,
-      name: "Balaji Homes Only for Boys PG",
-      price: "₹11,000",
-      location: "Thaltej, Ahmedabad",
-      distance: "0.1 Km from Udgam School",
-      image: "https://placehold.co/400x250",
-      tags: ["Food Included", "Beds Available", "AC"],
-    },
-    {
-      id: 2,
-      name: "Balaji Homes Only for Boys PG",
-      price: "₹11,000",
-      location: "Thaltej, Ahmedabad",
-      distance: "0.1 Km from Udgam School",
-      image: "https://placehold.co/400x250",
-      tags: ["Food Included", "Beds Available", "AC"],
-    },
-    {
-      id: 3,
-      name: "Balaji Homes Only for Boys PG",
-      price: "₹11,000",
-      location: "Thaltej, Ahmedabad",
-      distance: "0.1 Km from Udgam School",
-      image: "https://placehold.co/400x250",
-      tags: ["Food Included", "Beds Available", "AC"],
-    },
-    {
-      id: 4,
-      name: "Balaji Homes Only for Boys PG",
-      price: "₹11,000",
-      location: "Thaltej, Ahmedabad",
-      distance: "0.1 Km from Udgam School",
-      image: "https://placehold.co/400x250",
-      tags: ["Food Included", "Beds Available", "AC"],
-    },
-  ];
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        import.meta.env.VITE_SERVER_ORIGIN + "/api/properties/get"
+      );
+      const data = await res.json();
+      setListings(data.data);
+    }
+
+    fetchData();
+  }, [setListings]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -88,16 +63,16 @@ export default function Explore() {
             {listings.length} PGs Available in Ahmedabad
           </h2>
 
-          {listings.map((pg) => (
+          {listings.map((pg, idx) => (
             <div
-              key={pg.id}
+              key={idx}
               className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
             >
               <div className="grid grid-cols-1 sm:grid-cols-4">
                 {/* Image */}
                 <img
-                  src={pg.image}
-                  alt={pg.name}
+                  src={pg.imageURL}
+                  alt={pg.propertyName}
                   className="h-44 sm:h-full w-full object-cover sm:col-span-1"
                 />
                 {/* Info */}
@@ -106,7 +81,7 @@ export default function Explore() {
                     <h3 className="text-xl font-bold text-gray-800">
                       {pg.price} onwards
                     </h3>
-                    <p className="text-gray-600 font-medium">{pg.name}</p>
+                    <p className="text-gray-600 font-medium">{pg.propertyName}</p>
                     <p className="text-gray-500 text-sm mt-1">{pg.location}</p>
                     <p className="text-gray-400 text-xs mt-1">{pg.distance}</p>
                     <div className="flex flex-wrap gap-2 mt-3">

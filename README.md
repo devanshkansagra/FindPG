@@ -7,37 +7,27 @@ A modern platform that helps students and working professionals quickly discover
 ### Authentication and Authorization:
 
 - Secure login and signup using JWT authentication and Bcrypt.js for password hashing.
-
 - Two roles: Tenant and Agent.
 
 ### Tenant Functionality:
 
 - Search PGs/Hostels by location, budget, and amenities.
-
 - Apply filters (e.g., price range, single/double occupancy, food included).
-
 - Save favorite PGs for quick access.
-
 - Book visits or contact property owners directly.
-
 - Update profile details.
 
 ### Agent Functionality:
 
 - Add, update, or remove PG listings.
-
 - Upload images, set rent, facilities, and availability.
-
 - Manage tenant requests and inquiries.
-
 - Track occupancy and bookings.
 
 ### General Features:
 
 - Mobile-friendly responsive design.
-
 - Interactive maps integration for nearby PG search.
-
 - Secure profile management for both tenants and agents.
 
 ## 🛠️ Tech Stack
@@ -45,24 +35,20 @@ A modern platform that helps students and working professionals quickly discover
 ### Client:
 
 - React
-
 - Zustand
-
 - Tailwind CSS
-
 - Socket.io
 
 ### Server:
 
 - Node.js
-
 - Express
-
 - Socket.io
 
-### Database:
+### Database & Storage:
 
 - MongoDB
+- AWS S3 Bucket
 
 ## ⚙️ Installation
 
@@ -94,6 +80,10 @@ A modern platform that helps students and working professionals quickly discover
     ACCESS_TOKEN_EXPIRY=1d
     REFRESH_TOKEN_SECRET=68ceaf35-3cd8-8321-b6b3-9572e0df983f #(Recommended to generate random)
     REFRESH_TOKEN_EXPIRY=7d
+    AWS_BUCKET_NAME=
+    AWS_BUCKET_REGION=
+    AWS_ACCESS_KEY=
+    AWS_SECRET_ACCESS_KEY=
     ```
 
     - Frontend
@@ -103,7 +93,6 @@ A modern platform that helps students and working professionals quickly discover
 
 5. To Run Project
     ```bash
-
     cd frontend
     npm start run 
 
