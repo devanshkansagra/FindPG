@@ -31,7 +31,9 @@ export function Navbar() {
           body: formData,
         }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const fileSelected = (event) => {
@@ -161,7 +163,7 @@ export function Navbar() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Tags (comma separated)
+                  Tags (space seprated)
                 </label>
                 <input
                   type="text"

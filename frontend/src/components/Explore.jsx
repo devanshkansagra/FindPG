@@ -7,7 +7,7 @@ export default function Explore() {
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(
-        import.meta.env.VITE_SERVER_ORIGIN + "/api/properties/get"
+        import.meta.env.VITE_SERVER_ORIGIN + "/api/property/get"
       );
       const data = await res.json();
       setListings(data.data);
