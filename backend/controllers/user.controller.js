@@ -18,7 +18,7 @@ export async function login(req, res) {
     }
     const { accessToken, refreshToken } = await generateAuthTokens(user);
     const options = {
-      httpOnly: true,
+      httpOnly: false,
       secure: false,
       path: "/",
       expiresIn: 1000 * 60 * 60 * 24,
@@ -27,6 +27,7 @@ export async function login(req, res) {
       .status(200)
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
+      .cookie("role", "user", options)
       .send(
         new ApiResponse({
           statusCode: 200,
@@ -57,7 +58,7 @@ export async function signup(req, res) {
     const response = await newUser.save();
 
     const options = {
-      httpOnly: true,
+      httpOnly: false,
       secure: false,
       path: "/",
       expiresIn: 1000 * 60 * 60 * 24,
@@ -68,6 +69,7 @@ export async function signup(req, res) {
         .status(201)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
+        .cookie("role", "user", options)
         .send(
           new ApiResponse({ statusCode: 201, message: "New User Created" })
         );

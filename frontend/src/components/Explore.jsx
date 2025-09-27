@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
+import Cookie from "../helpers/Cookie";
 
 export default function Explore() {
   const [listings, setListings] = useState([]);
