@@ -60,7 +60,8 @@ export async function signup(req, res) {
       httpOnly: true,
       secure: false,
       path: "/",
-      expiresIn: 1000 * 60 * 60 * 24,
+      maxAge: 1000 * 60 * 60 * 24,
+      sameSite: "none"
     };
 
     if (response) {

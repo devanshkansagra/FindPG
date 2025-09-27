@@ -10,7 +10,7 @@ export async function addProperty(req, res) {
     await uploadFile(file.buffer, file.originalname, file.mimetype);
 
     const imageURL = await getFile(file.originalname);
-    const tagArr = tags.split(" ");
+    const tagArr = tags.split(",").map((x) => x.trim());
     const newProperty = Property.create({
       propertyName,
       price: Number.parseInt(price),
