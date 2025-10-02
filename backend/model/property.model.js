@@ -1,13 +1,59 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema } from "mongoose";
 
 const propertySchema = new Schema({
-    propertyName: String,
-    price: Number,
-    Location: String,
-    distance: String,
-    imageURL: String,
-    tags: [String]
+  agentId: {
+    type: Schema.Types.ObjectId,
+    ref: "agents",
+    required: true,
+  },
+  propertyName: {
+    type: String,
+    required: true,
+  },
+  propertyType: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  deposit: {
+    type: Number,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  amenities: {
+    type: [String],
+    required: true,
+  },
+  rules: {
+    type: [String],
+    required: true,
+  },
+  agentName: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  imageURL: {
+    type: String,
+  },
 });
 
-const Property = model('properties', propertySchema);
+const Property = model("properties", propertySchema);
 export default Property;

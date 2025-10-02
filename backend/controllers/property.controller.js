@@ -5,18 +5,38 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 export async function addProperty(req, res) {
   const file = req.file;
-  const { propertyName, price, location, distance, tags } = req.body;
+  const {
+    propertyName,
+    propertyType,
+    price,
+    deposit,
+    location,
+    address,
+    amenities,
+    rules,
+    agentName,
+    phone,
+    email,
+  } = req.body;
+
+  const agentId = req.user._id;
   try {
     await uploadFile(file.buffer, file.originalname, file.mimetype);
 
     const imageURL = await getFile(file.originalname);
-    const tagArr = tags.split(",").map((x) => x.trim());
     const newProperty = Property.create({
+      agentId,
       propertyName,
-      price: Number.parseInt(price),
+      propertyType,
+      price,
+      deposit,
       location,
-      distance,
-      tags: tagArr,
+      address,
+      amenities,
+      rules,
+      agentName,
+      phone,
+      email,
       imageURL,
     });
 

@@ -35,7 +35,9 @@ export async function login(req, res) {
         })
       );
   } catch (error) {
-    res.status(error.statusCode).send(new ApiError(error.statusCode, error.message));
+    res
+      .status(error.statusCode)
+      .send(new ApiError(error.statusCode, error.message));
   }
 }
 
@@ -43,7 +45,7 @@ export async function signup(req, res) {
   const { role, name, email, phone, password } = req.body;
 
   if (phone.length != 10) {
-    throw new ApiError(400, "Invalid Phone Length")
+    throw new ApiError(400, "Invalid Phone Length");
   }
   const tel = Number.parseInt(phone);
   try {
@@ -75,7 +77,33 @@ export async function signup(req, res) {
         );
     }
   } catch (error) {
-    res.status(error.statusCode).send(new ApiError(error.statusCode, error.message));
+    res
+      .status(error.statusCode)
+      .send(new ApiError(error.statusCode, error.message));
+  }
+}
+export async function logout(req, res) {
+  try {
+    await res
+      .status(200)
+      .clearCookie("accessToken", {
+        httpOnly: false,
+        secure: false,
+        path: "/",
+      })
+      .clearCookie("refreshToken", {
+        httpOnly: false,
+        secure: false,
+        path: "/",
+      })
+      .clearCookie("role", {
+        httpOnly: false,
+        secure: false,
+        path: "/",
+      })
+      .send(new ApiResponse({ statusCode: 200, message: "Logout Successful" }));
+  } catch (error) {
+    console.log(error);
   }
 }
 export async function profile(req, res) {}

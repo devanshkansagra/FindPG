@@ -80,13 +80,25 @@ export default function Explore() {
                 <div className="p-4 sm:col-span-3 flex flex-col justify-between">
                   <div>
                     <h3 className="text-xl font-bold text-gray-800">
-                      {pg.price} onwards
+                      {pg.propertyName}
                     </h3>
-                    <p className="text-gray-600 font-medium">{pg.propertyName}</p>
+                    <p className="text-gray-600 font-medium">Rs. {pg.price} onwards</p>
                     <p className="text-gray-500 text-sm mt-1">{pg.location}</p>
-                    <p className="text-gray-400 text-xs mt-1">{pg.distance}</p>
+                    <p className="text-gray-400 text-xs mt-1">{pg.address}</p>
+                    <p className="text-gray-400 text-xs mt-1"><b>Amenities</b></p>
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {pg.tags.map((tag, idx) => (
+                      {pg.amenities.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-gray-400 text-xs mt-1"><b>Rules</b></p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {pg.rules.map((tag, idx) => (
                         <span
                           key={idx}
                           className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-md"
@@ -98,7 +110,7 @@ export default function Explore() {
                   </div>
                   <div className="flex gap-3 mt-4">
                     <button className="bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700">
-                      View Phone No.
+                      View Details.
                     </button>
                     <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200">
                       Contact Owner
@@ -108,41 +120,6 @@ export default function Explore() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Right Sidebar */}
-        <div className="hidden lg:block">
-          <div className="bg-white rounded-xl shadow-md p-4">
-            <h3 className="font-semibold text-gray-700 mb-4">Suggested PGs</h3>
-            <ul className="space-y-4">
-              <li className="flex gap-3 items-center">
-                <img
-                  src="https://via.placeholder.com/80"
-                  alt="pg"
-                  className="w-16 h-16 rounded-md object-cover"
-                />
-                <div>
-                  <p className="text-sm font-medium text-gray-800">
-                    Prerna PG for Girls
-                  </p>
-                  <p className="text-xs text-gray-500">₹13,000</p>
-                </div>
-              </li>
-              <li className="flex gap-3 items-center">
-                <img
-                  src="https://via.placeholder.com/80"
-                  alt="pg"
-                  className="w-16 h-16 rounded-md object-cover"
-                />
-                <div>
-                  <p className="text-sm font-medium text-gray-800">
-                    Elite Boys Hostel
-                  </p>
-                  <p className="text-xs text-gray-500">₹9,500</p>
-                </div>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

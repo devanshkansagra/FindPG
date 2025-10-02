@@ -6,6 +6,7 @@ import AgentDashboard from "./components/AgentDashboard";
 import Explore from "./components/Explore";
 import { Navbar } from "./components/Navbar";
 import PrivateRoute from "./utils/PrivateRoutes";
+import AddPG from "./components/AddPG";
 function App() {
   return (
     <>
@@ -19,6 +20,14 @@ function App() {
             element={
               <PrivateRoute role="agent">
                 <AgentDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/addPG"
+            element={
+              <PrivateRoute role="agent">
+                <AddPG />
               </PrivateRoute>
             }
           />

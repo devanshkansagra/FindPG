@@ -45,7 +45,7 @@ export default function LoginPage() {
         );
 
         if (res.ok && res.status === 200) {
-          navigate("/");
+          navigate("/AgentDashboard");
         }
       } catch (error) {
         console.log(error);
