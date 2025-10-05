@@ -10,7 +10,7 @@ import AddPG from './components/AddPG';
 import Cookie from './helpers/Cookie';
 import Chat from './components/Chat';
 function App() {
-  const role = Cookie.get("role");
+  const role = Cookie.get('role');
   return (
     <>
       <BrowserRouter>
@@ -22,7 +22,7 @@ function App() {
           <Route
             path="/AgentDashboard"
             element={
-              <PrivateRoute allowedRoles={["agent"]}>
+              <PrivateRoute allowedRoles={['agent']}>
                 <AgentDashboard />
               </PrivateRoute>
             }
@@ -30,7 +30,7 @@ function App() {
           <Route
             path="/addPG"
             element={
-              <PrivateRoute allowedRoles={["agent"]}>
+              <PrivateRoute allowedRoles={['agent']}>
                 <AddPG />
               </PrivateRoute>
             }

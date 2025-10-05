@@ -1,22 +1,24 @@
 import { Schema, model } from 'mongoose';
 
-const chatSchema = new Schema({
-  members: [
-    {
+const chatSchema = new Schema(
+  {
+    members: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+      },
+    ],
+    lastMessage: {
       type: Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'message',
     },
-  ],
-  lastMessage: {
-    type: Schema.Types.ObjectId,
-    ref: 'message',
+    unreadCount: {
+      type: Number,
+      default: 0,
+    },
   },
-  unreadCount: {
-    type: Number,
-    default: 0
-  },
+  { timestamps: true }
+);
 
-}, {timestamps: true});
-
-const Chat = model("chats", chatSchema);
+const Chat = model('chats', chatSchema);
 export default Chat;

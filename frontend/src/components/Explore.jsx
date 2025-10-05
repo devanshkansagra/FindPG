@@ -19,7 +19,7 @@ export default function Explore() {
   }, [setListings]);
 
   async function handleChat(e) {
-    setChatOpen(true)
+    setChatOpen(true);
   }
   return (
     <div className="min-h-screen bg-gray-50">

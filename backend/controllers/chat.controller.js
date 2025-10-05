@@ -1,4 +1,4 @@
-import Chat from "../model/chat.model";
+import Chat from '../model/chat.model';
 
 export const sendMessage = async function (req, res) {
   try {
@@ -6,16 +6,15 @@ export const sendMessage = async function (req, res) {
 
     const participants = [senderId, recieverId].sort();
     let conversation = await Chat.findOne({
-        members: participants
-    })
+      members: participants,
+    });
 
-    if(!conversation) {
-        conversation = new Chat({
-            members: participants,
-        })
+    if (!conversation) {
+      conversation = new Chat({
+        members: participants,
+      });
 
-        await conversation.save();
-        
+      await conversation.save();
     }
   } catch (error) {}
 };
