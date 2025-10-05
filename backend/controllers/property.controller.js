@@ -1,7 +1,7 @@
-import { uploadFile, getFile } from "../utils/AWS.js";
-import Property from "../model/property.model.js";
-import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
+import { uploadFile, getFile } from '../utils/AWS.js';
+import Property from '../model/property.model.js';
+import { ApiError } from '../utils/ApiError.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
 
 export async function addProperty(req, res) {
   const file = req.file;
@@ -16,6 +16,7 @@ export async function addProperty(req, res) {
     rules,
     agentName,
     phone,
+    ownerPhone,
     email,
   } = req.body;
 
@@ -36,17 +37,14 @@ export async function addProperty(req, res) {
       rules,
       agentName,
       phone,
+      ownerPhone,
       email,
       imageURL,
     });
 
     const response = (await newProperty).save();
     if (response) {
-      res
-        .status(201)
-        .send(
-          new ApiResponse({ statusCode: 201, message: "New Property Added" })
-        );
+      res.status(201).send(new ApiResponse({ statusCode: 201, message: 'New Property Added' }));
     }
   } catch (error) {
     console.log(error);

@@ -1,23 +1,22 @@
-import React from "react";
-import boysPg from "../assets/boys-pg.jpg";
-import girlsPg from "../assets/girls-pg.jpg";
-import studentFriendly from "../assets/student-friendly-pg.jpg";
-import hostels from "../assets/hostels.png";
-import wifi from "../assets/pg-with-wifi.jpeg";
-import meals from "../assets/meals_included.png";
-import forstudents from "../assets/for_students.png";
-import singleRooms from "../assets/single_rooms.png";
-import forProfessionals from "../assets/for_professionals.png";
+import React from 'react';
+import boysPg from '../assets/boys-pg.jpg';
+import girlsPg from '../assets/girls-pg.jpg';
+import studentFriendly from '../assets/student-friendly-pg.jpg';
+import hostels from '../assets/hostels.png';
+import wifi from '../assets/pg-with-wifi.jpeg';
+import meals from '../assets/meals_included.png';
+import forstudents from '../assets/for_students.png';
+import singleRooms from '../assets/single_rooms.png';
+import forProfessionals from '../assets/for_professionals.png';
 
-import { useNavigate } from "react-router-dom";
-import { Navbar } from "./Navbar";
+import { useNavigate } from 'react-router-dom';
+import { Navbar } from './Navbar';
 
 export default function LandingPage() {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Navbar/>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="bg-gray-50 py-12">
@@ -52,28 +51,19 @@ export default function LandingPage() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { label: "Student Friendly PGs", img: studentFriendly },
-            { label: "PG for Girls", img: girlsPg },
-            { label: "PG for Boys", img: boysPg },
-            { label: "Hostels", img: hostels },
+            { label: 'Student Friendly PGs', img: studentFriendly },
+            { label: 'PG for Girls', img: girlsPg },
+            { label: 'PG for Boys', img: boysPg },
+            { label: 'Hostels', img: hostels },
           ].map((cat, idx) => (
             <div
               key={idx}
               className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition"
             >
-              <img
-                src={cat.img}
-                alt={cat.label}
-                className="w-full h-40 object-cover"
-              />
+              <img src={cat.img} alt={cat.label} className="w-full h-40 object-cover" />
               <div className="p-5">
-                <p className="text-lg font-semibold text-gray-800">
-                  {cat.label}
-                </p>
-                <a
-                  href="#"
-                  className="text-sm text-red-600 hover:underline mt-2 block"
-                >
+                <p className="text-lg font-semibold text-gray-800">{cat.label}</p>
+                <a href="#" className="text-sm text-red-600 hover:underline mt-2 block">
                   Explore →
                 </a>
               </div>
@@ -86,25 +76,19 @@ export default function LandingPage() {
       <section className="bg-gray-100 py-12">
         <div className="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-8 text-center">
           <div>
-            <p className="text-lg font-semibold text-gray-800">
-              20k+ Verified Listings
-            </p>
+            <p className="text-lg font-semibold text-gray-800">20k+ Verified Listings</p>
             <p className="text-sm text-gray-600 mt-2">
               Choose from thousands of verified PGs and Hostels.
             </p>
           </div>
           <div>
-            <p className="text-lg font-semibold text-gray-800">
-              75,000+ Monthly Users
-            </p>
+            <p className="text-lg font-semibold text-gray-800">75,000+ Monthly Users</p>
             <p className="text-sm text-gray-600 mt-2">
               Trusted by students & professionals across India.
             </p>
           </div>
           <div>
-            <p className="text-lg font-semibold text-gray-800">
-              300+ Data Points
-            </p>
+            <p className="text-lg font-semibold text-gray-800">300+ Data Points</p>
             <p className="text-sm text-gray-600 mt-2">
               Helping you make the right choice with transparency.
             </p>
@@ -115,29 +99,22 @@ export default function LandingPage() {
       {/* Handpicked Collections */}
       <section className="max-w-7xl mx-auto px-6 py-16">
         <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-10">
-          Explore our{" "}
-          <span className="text-red-600">Handpicked Collections</span>
+          Explore our <span className="text-red-600">Handpicked Collections</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {[
-            { categoryName: "Wifi Included", img: wifi },
-            { categoryName: "Meals Included", img: meals },
-            { categoryName: "For Students", img: forstudents },
-            { categoryName: "For Professionals", img: forProfessionals },
-            { categoryName: "Single Rooms", img: singleRooms },
+            { categoryName: 'Wifi Included', img: wifi },
+            { categoryName: 'Meals Included', img: meals },
+            { categoryName: 'For Students', img: forstudents },
+            { categoryName: 'For Professionals', img: forProfessionals },
+            { categoryName: 'Single Rooms', img: singleRooms },
           ].map((c, idx) => (
             <div
               key={idx}
               className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition"
             >
-              <img
-                src={c.img}
-                alt={c.categoryName}
-                className="w-full h-44 object-cover"
-              />
-              <div className="p-5 text-lg font-semibold text-gray-800">
-                {c.categoryName}
-              </div>
+              <img src={c.img} alt={c.categoryName} className="w-full h-44 object-cover" />
+              <div className="p-5 text-lg font-semibold text-gray-800">{c.categoryName}</div>
             </div>
           ))}
         </div>

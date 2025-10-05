@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Navbar } from "./Navbar";
-import Cookie from "../helpers/Cookie";
+import React, { useEffect, useState } from 'react';
+import { Navbar } from './Navbar';
+import Cookie from '../helpers/Cookie';
+import { Navigate } from 'react-router-dom';
 
 export default function Explore() {
   const [listings, setListings] = useState([]);
+  const [toast, setToast] = useState({ show: false, message: '' }); // Toast state
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(
-        import.meta.env.VITE_SERVER_ORIGIN + "/api/property/get"
-      );
+      const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + '/api/property/get');
       const data = await res.json();
       setListings(data.data);
     }
@@ -17,9 +18,13 @@ export default function Explore() {
     fetchData();
   }, [setListings]);
 
+  async function handleChat(e) {
+    setChatOpen(true)
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
+
       {/* Filters */}
       <div className="bg-white shadow-md border-b py-4 px-6 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto flex flex-wrap gap-4 items-center justify-between">
@@ -79,13 +84,13 @@ export default function Explore() {
                 {/* Info */}
                 <div className="p-4 sm:col-span-3 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800">
-                      {pg.propertyName}
-                    </h3>
+                    <h3 className="text-xl font-bold text-gray-800">{pg.propertyName}</h3>
                     <p className="text-gray-600 font-medium">Rs. {pg.price} onwards</p>
                     <p className="text-gray-500 text-sm mt-1">{pg.location}</p>
                     <p className="text-gray-400 text-xs mt-1">{pg.address}</p>
-                    <p className="text-gray-400 text-xs mt-1"><b>Amenities</b></p>
+                    <p className="text-gray-400 text-xs mt-1">
+                      <b>Amenities</b>
+                    </p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {pg.amenities.map((tag, idx) => (
                         <span
@@ -96,7 +101,9 @@ export default function Explore() {
                         </span>
                       ))}
                     </div>
-                    <p className="text-gray-400 text-xs mt-1"><b>Rules</b></p>
+                    <p className="text-gray-400 text-xs mt-1">
+                      <b>Rules</b>
+                    </p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {pg.rules.map((tag, idx) => (
                         <span
@@ -115,6 +122,13 @@ export default function Explore() {
                     <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200">
                       Contact Owner
                     </button>
+                    <button
+                      onClick={handleChat}
+                      className="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200"
+                    >
+                      Chat with Agent
+                    </button>
+                    {chatOpen && <Navigate to="/chat" />}
                   </div>
                 </div>
               </div>

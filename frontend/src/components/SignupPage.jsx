@@ -1,49 +1,28 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignupPage() {
-  const [role, setRole] = useState("tenant");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+  const [role, setRole] = useState('tenant');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   async function handleSignup(e) {
     e.preventDefault();
     const data = { role, name, email, phone, password };
-    if (role === "tenant") {
-      const res = await fetch(
-        import.meta.env.VITE_SERVER_ORIGIN + "/api/user/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-          credentials: "include"
-        }
-      );
+    const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + '/api/user/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    });
 
-      if(res.ok && res.status ===  201) {
-        navigate('/');
-      }
-    } else if (role === "agent") {
-      const res = await fetch(
-        import.meta.env.VITE_SERVER_ORIGIN + "/api/agent/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-          credentials: "include"
-        }
-      );
-
-      if(res.ok && res.status ===  201) {
-        navigate('/');
-      }
+    if (res.ok && res.status === 201) {
+      navigate('/');
     }
   }
 
@@ -55,32 +34,28 @@ export default function SignupPage() {
           <div className="flex items-center justify-center w-14 h-14 rounded-full bg-red-600 text-white text-2xl font-bold">
             FP
           </div>
-          <h1 className="mt-4 text-2xl font-bold text-gray-800">
-            Create Account
-          </h1>
-          <p className="text-sm text-gray-500">
-            Sign up to get started with FindPG
-          </p>
+          <h1 className="mt-4 text-2xl font-bold text-gray-800">Create Account</h1>
+          <p className="text-sm text-gray-500">Sign up to get started with FindPG</p>
         </div>
 
         {/* Role Toggle Chips */}
         <div className="flex justify-center gap-3 mb-6">
           <button
-            onClick={() => setRole("tenant")}
+            onClick={() => setRole('tenant')}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
-              role === "tenant"
-                ? "bg-red-600 text-white shadow"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              role === 'tenant'
+                ? 'bg-red-600 text-white shadow'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             Tenant
           </button>
           <button
-            onClick={() => setRole("agent")}
+            onClick={() => setRole('agent')}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
-              role === "agent"
-                ? "bg-red-600 text-white shadow"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              role === 'agent'
+                ? 'bg-red-600 text-white shadow'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             Agent
@@ -90,9 +65,7 @@ export default function SignupPage() {
         {/* Signup Form */}
         <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Full Name
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Full Name</label>
             <input
               type="text"
               placeholder="John Doe"
@@ -101,9 +74,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               placeholder="you@example.com"
@@ -112,9 +83,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Phone Number
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Phone Number</label>
             <input
               type="text"
               placeholder="98765 43210"
@@ -123,9 +92,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               placeholder="••••••••"
@@ -139,13 +106,13 @@ export default function SignupPage() {
             className="w-full bg-red-600 text-white py-2.5 rounded-md font-medium hover:bg-red-700 transition"
             onClick={handleSignup}
           >
-            Sign up as {role === "tenant" ? "Tenant" : "Agent"}
+            Sign up as {role === 'tenant' ? 'Tenant' : 'Agent'}
           </button>
         </form>
 
         {/* Footer */}
         <p className="mt-6 text-center text-sm text-gray-600">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <a href="/login" className="text-red-600 font-medium hover:underline">
             Login
           </a>

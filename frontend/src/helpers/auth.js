@@ -1,5 +1,5 @@
-import Cookie from "./Cookie";
+import Cookie from './Cookie';
 
 export function isAuthenticated() {
-    return !!Cookie.get("accessToken");
+  return !!Cookie.get('accessToken');
 }

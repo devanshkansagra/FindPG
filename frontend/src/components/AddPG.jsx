@@ -1,20 +1,21 @@
-import AgentDashboardNavbar from "./AgentDashboardNavbar";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import AgentDashboardNavbar from './AgentDashboardNavbar';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddPG() {
-  const [propertyName, setPropertyName] = useState("");
-  const [propertyType, setPropertyType] = useState("");
+  const [propertyName, setPropertyName] = useState('');
+  const [propertyType, setPropertyType] = useState('');
   const [price, setPrice] = useState(0);
   const [deposit, setDeposit] = useState(0);
-  const [location, setLocation] = useState("");
-  const [address, setAddress] = useState("");
+  const [location, setLocation] = useState('');
+  const [address, setAddress] = useState('');
   const [amenities, setAmenities] = useState([]);
   const [rules, setRules] = useState([]);
-  const [agentName, setAgentName] = useState("");
+  const [agentName, setAgentName] = useState('');
   const [phone, setPhone] = useState(0);
-  const [email, setEmail] = useState("");
-  const [image, setImage] = useState("");
+  const [ownerPhone, setOwnerPhone] = useState(0);
+  const [email, setEmail] = useState('');
+  const [image, setImage] = useState('');
 
   const navigate = useNavigate();
 
@@ -23,33 +24,31 @@ export default function AddPG() {
 
     try {
       const formData = new FormData();
-      formData.append("propertyName", propertyName);
-      formData.append("propertyType", propertyType);
-      formData.append("price", price);
-      formData.append("deposit", deposit);
-      formData.append("location", location);
-      formData.append("address", address);
+      formData.append('propertyName', propertyName);
+      formData.append('propertyType', propertyType);
+      formData.append('price', price);
+      formData.append('deposit', deposit);
+      formData.append('location', location);
+      formData.append('address', address);
 
-      amenities.forEach((a) => formData.append("amenities[]", a));
-      rules.forEach((r) => formData.append("rules[]", r));
+      amenities.forEach((a) => formData.append('amenities[]', a));
+      rules.forEach((r) => formData.append('rules[]', r));
 
-      formData.append("agentName", agentName);
-      formData.append("phone", phone);
-      formData.append("email", email);
-      formData.append("image", image)
+      formData.append('agentName', agentName);
+      formData.append('phone', phone);
+      formData.append('ownerPhone', ownerPhone);
+      formData.append('email', email);
+      formData.append('image', image);
 
-      const res = await fetch(
-        import.meta.env.VITE_SERVER_ORIGIN + "/api/property/add",
-        {
-          method: "POST",
-          body: formData,
-          credentials: "include"
-        }
-      );
+      const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + '/api/property/add', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      });
 
       if (res.status === 201) {
         // navigate("/my-listings");
-        navigate("/AgentDashboard")
+        navigate('/AgentDashboard');
       }
     } catch (error) {
       console.log(error);
@@ -83,14 +82,10 @@ export default function AddPG() {
       <AgentDashboardNavbar />
       <div className="flex justify-center p-8 bg-gray-50 min-h-screen">
         <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Add New PG / Hostel
-          </h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New PG / Hostel</h2>
           <form className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Property Name
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Property Name</label>
               <input
                 type="text"
                 placeholder="Ex: Sunshine PG"
@@ -101,9 +96,7 @@ export default function AddPG() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Type
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Type</label>
                 <select
                   className="mt-1 block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => setPropertyType(e.target.value)}
@@ -115,9 +108,7 @@ export default function AddPG() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Location
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Location</label>
                 <input
                   type="text"
                   placeholder="City / Area"
@@ -128,9 +119,7 @@ export default function AddPG() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Full Address
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Full Address</label>
               <textarea
                 rows="2"
                 placeholder="Street, Landmark, City"
@@ -141,9 +130,7 @@ export default function AddPG() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Price (per month)
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Price (per month)</label>
                 <input
                   type="number"
                   placeholder="5000"
@@ -152,9 +139,7 @@ export default function AddPG() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Deposit
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Deposit</label>
                 <input
                   type="number"
                   placeholder="10000"
@@ -165,11 +150,9 @@ export default function AddPG() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Amenities
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Amenities</label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
-                {["WiFi", "AC", "Food", "Parking"].map((item) => (
+                {['WiFi', 'AC', 'Food', 'Parking'].map((item) => (
                   <label key={item} className="block">
                     <input
                       type="checkbox"
@@ -184,17 +167,15 @@ export default function AddPG() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Rules
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Rules</label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
                 {[
-                  "Boys Only",
-                  "Girls Only",
-                  "Boys and Girls",
-                  "Smoking Allowed",
-                  "Drinking Allowed",
-                  "Visitors Allowed",
+                  'Boys Only',
+                  'Girls Only',
+                  'Boys and Girls',
+                  'Smoking Allowed',
+                  'Drinking Allowed',
+                  'Visitors Allowed',
                 ].map((rule) => (
                   <label key={rule} className="flex items-center space-x-2">
                     <input
@@ -210,9 +191,7 @@ export default function AddPG() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Upload Images
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Upload Images</label>
               <input
                 type="file"
                 multiple
@@ -239,9 +218,7 @@ export default function AddPG() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Phone</label>
                 <input
                   type="text"
                   placeholder="9876543210"
@@ -249,12 +226,19 @@ export default function AddPG() {
                   onChange={(e) => setPhone(Number.parseInt(e.target.value))}
                 />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Owner Phone</label>
+                <input
+                  type="text"
+                  placeholder="9876543210"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                  onChange={(e) => setOwnerPhone(Number.parseInt(e.target.value))}
+                />
+              </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 placeholder="agent@example.com"

@@ -1,9 +1,9 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const propertySchema = new Schema({
   agentId: {
     type: Schema.Types.ObjectId,
-    ref: "agents",
+    ref: 'agents',
     required: true,
   },
   propertyName: {
@@ -46,6 +46,10 @@ const propertySchema = new Schema({
     type: Number,
     required: true,
   },
+  ownerPhone: {
+    type: Number,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -55,5 +59,5 @@ const propertySchema = new Schema({
   },
 });
 
-const Property = model("properties", propertySchema);
+const Property = model('properties', propertySchema);
 export default Property;

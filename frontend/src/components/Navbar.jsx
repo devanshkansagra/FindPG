@@ -1,19 +1,22 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Cookie from "../helpers/Cookie";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Cookie from '../helpers/Cookie';
 
 export function Navbar() {
   const navigate = useNavigate();
 
-  const role = Cookie.get("role");
-  const accessToken = Cookie.get("accessToken");
+  const role = Cookie.get('role');
+  const accessToken = Cookie.get('accessToken');
 
   async function handleLogout(e) {
     try {
-      const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + `/api/${role}/logout`, {method: "GET", credentials: "include"})
-      if(res.status === 200) {
+      const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + `/api/user/logout`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (res.status === 200) {
         navigate('/');
-      } 
+      }
     } catch (error) {
       console.log(error);
     }
@@ -47,9 +50,9 @@ export function Navbar() {
             </a>
           </nav>
           <div>
-            {role === "agent" ? (
+            {role === 'agent' ? (
               <button
-                onClick={() => navigate("/addPG")}
+                onClick={() => navigate('/addPG')}
                 className="ml-4 bg-white text-red-600 px-4 py-1.5 rounded-md text-sm font-medium"
               >
                 Post Property
@@ -66,7 +69,7 @@ export function Navbar() {
               </button>
             ) : (
               <button
-                onClick={() => navigate("/login")}
+                onClick={() => navigate('/login')}
                 className="ml-4 bg-white hover:cursor-pointer text-red-600 px-4 py-1.5 rounded-md text-sm font-medium"
               >
                 Login
