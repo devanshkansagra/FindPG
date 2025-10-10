@@ -10,7 +10,6 @@ import AddPG from './components/AddPG';
 import Cookie from './helpers/Cookie';
 import Chat from './components/Chat';
 function App() {
-  const role = Cookie.get('role');
   return (
     <>
       <BrowserRouter>

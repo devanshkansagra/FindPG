@@ -2,21 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
 import Cookie from '../helpers/Cookie';
 import { Navigate } from 'react-router-dom';
+import { useFetch } from '../hooks/useFetch';
 
 export default function Explore() {
-  const [listings, setListings] = useState([]);
+
+  const url = `${import.meta.env.VITE_SERVER_ORIGIN}/api/property/get`
+  const { data, error } = useFetch(url)
+  const listings = data?.data ?? [];
   const [toast, setToast] = useState({ show: false, message: '' }); // Toast state
   const [chatOpen, setChatOpen] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + '/api/property/get');
-      const data = await res.json();
-      setListings(data.data);
-    }
-
-    fetchData();
-  }, [setListings]);
 
   async function handleChat(e) {
     setChatOpen(true);
