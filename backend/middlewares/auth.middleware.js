@@ -9,7 +9,7 @@ export async function verify(req, res, next) {
       return;
     }
 
-    const token = authHeader.split(' ')[1]
+    const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const user = await User.findById(decoded._id).select('-password');
     if (!user) {

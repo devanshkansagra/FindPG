@@ -8,7 +8,7 @@ export async function refreshAccessToken(req, res) {
     if (!refreshToken) {
       throw new ApiError(401, 'No refresh token found, please login again');
     } else {
-      const verifyToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);      
+      const verifyToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
       if (verifyToken) {
         const { _id, email } = verifyToken;
