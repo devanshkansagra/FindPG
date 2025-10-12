@@ -14,7 +14,7 @@ export function useFetch(url, options = {}) {
           setData(res);
         }
       } catch (error) {
-        setError(error)
+        setError(error);
       }
     }
     fetchData();

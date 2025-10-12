@@ -21,12 +21,17 @@ export async function login(req, res) {
       httpOnly: false,
       secure: false,
       path: '/',
-      expiresIn: 1000 * 60 * 60 * 24,
+      maxAge: 1000 * 60 * 60,
     };
     res
       .status(200)
       .cookie('accessToken', accessToken, options)
-      .cookie('refreshToken', refreshToken, options)
+      .cookie('refreshToken', refreshToken, {
+        httpOnly: false,
+        secure: false,
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      })
       .cookie('role', role, options)
       .send(
         new ApiResponse({
@@ -61,14 +66,19 @@ export async function signup(req, res) {
       httpOnly: false,
       secure: false,
       path: '/',
-      expiresIn: 1000 * 60 * 60 * 24,
+      expiresIn: 1000 * 60 * 60,
     };
 
     if (response) {
       res
-        .status(201)
+        .status(200)
         .cookie('accessToken', accessToken, options)
-        .cookie('refreshToken', refreshToken, options)
+        .cookie('refreshToken', refreshToken, {
+          httpOnly: false,
+          secure: false,
+          path: '/',
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+        })
         .cookie('role', role, options)
         .send(new ApiResponse({ statusCode: 201, message: 'New User Created' }));
     }
