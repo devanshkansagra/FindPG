@@ -3,12 +3,13 @@ import User from '../model/user.model.js';
 
 export async function verify(req, res, next) {
   try {
-    const token = req.cookies?.accessToken;
-    if (!token) {
-      res.status(401).json({ message: 'No token, unauthorized' });
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !authHeader.startsWith('Bearer')) {
+      res.status(401).json({ message: 'Access token is missing' });
       return;
     }
 
+    const token = authHeader.split(' ')[1]
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const user = await User.findById(decoded._id).select('-password');
     if (!user) {
@@ -19,6 +20,7 @@ export async function verify(req, res, next) {
     req.user = user;
     next();
   } catch (error) {
+    console.log(error);
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
