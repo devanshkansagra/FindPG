@@ -5,9 +5,8 @@ import { Navigate } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 
 export default function Explore() {
-
-  const url = `${import.meta.env.VITE_SERVER_ORIGIN}/api/property/get`
-  const { data, error } = useFetch(url)
+  const url = `${import.meta.env.VITE_SERVER_ORIGIN}/api/property/get`;
+  const { data, error } = useFetch(url);
   const listings = data?.data ?? [];
   const [toast, setToast] = useState({ show: false, message: '' }); // Toast state
   const [chatOpen, setChatOpen] = useState(false);
