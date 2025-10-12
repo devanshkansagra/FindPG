@@ -1,6 +1,7 @@
 import AgentDashboardNavbar from './AgentDashboardNavbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookie from '../helpers/Cookie'
 
 export default function AddPG() {
   const [propertyName, setPropertyName] = useState('');
@@ -40,8 +41,12 @@ export default function AddPG() {
       formData.append('email', email);
       formData.append('image', image);
 
+      const accessToken = Cookie.get('accessToken');
       const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + '/api/property/add', {
         method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        },
         body: formData,
         credentials: 'include',
       });

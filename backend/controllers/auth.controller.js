@@ -8,8 +8,7 @@ export async function refreshAccessToken(req, res) {
     if (!refreshToken) {
       throw new ApiError(401, 'No refresh token found, please login again');
     } else {
-      const verifyToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-      console.log(verifyAccessToken);
+      const verifyToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);      
 
       if (verifyToken) {
         const { _id, email } = verifyToken;
@@ -29,7 +28,6 @@ export async function refreshAccessToken(req, res) {
           { $set: { accessToken: newAccessToken } }
         );
         if (updateUser) {
-          console.log('User updated');
           const options = {
             httpOnly: false,
             secure: false,
