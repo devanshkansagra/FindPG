@@ -8,6 +8,7 @@ import AddPG from './components/AddPG';
 import Chat from './components/Chat';
 import Search from './components/Search';
 import Home from './components/Home';
+import EnquiryForm from './components/EnquiryForm';
 function App() {
   return (
     <>
@@ -39,6 +40,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Chat />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/enquiry"
+            element={
+              <PrivateRoute allowedRoles={['tenant']}>
+                <EnquiryForm />
               </PrivateRoute>
             }
           />

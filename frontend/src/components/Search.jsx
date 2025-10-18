@@ -23,7 +23,7 @@ export default function Search() {
 
           {listings.map((pg) => (
             <div key={pg._id}>
-              <PropertyCard pg={pg}/>
+              <PropertyCard pg={pg} />
             </div>
           ))}
         </div>

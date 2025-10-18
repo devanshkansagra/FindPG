@@ -73,17 +73,19 @@ A modern platform that helps students and working professionals quickly discover
 4. Setup .env file 
     - Backend
     ```bash
-    ORIGIN=http://localhost:5173
-    SERVER=http://localhost:4000
+    ORIGIN=http://localhost:5173 # (or your frontend deployment url)
+    SERVER=http://localhost:4000 # (or your backend deployment url)
     MONGDB_URI="mongodb://localhost:27017/FindPG"  # (or MongDB Atlas URL)
     ACCESS_TOKEN_SECRET=3f8d1c7e-9b2a-4e6e-8c1a-7a5e2d4b9c3f #(Recommended to generate random)
-    ACCESS_TOKEN_EXPIRY=1d
+    ACCESS_TOKEN_EXPIRY=3599s
     REFRESH_TOKEN_SECRET=68ceaf35-3cd8-8321-b6b3-9572e0df983f #(Recommended to generate random)
     REFRESH_TOKEN_EXPIRY=7d
     AWS_BUCKET_NAME=
     AWS_BUCKET_REGION=
     AWS_ACCESS_KEY=
     AWS_SECRET_ACCESS_KEY=
+    GMAIL_USER=
+    GMAIL_APP_PASSWORD=
     ```
 
     - Frontend

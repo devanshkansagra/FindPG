@@ -60,7 +60,7 @@ export default function Explore() {
         {/* Listings */}
         <div className="lg:col-span-3 space-y-6">
           <h2 className="text-lg font-semibold text-gray-700 mb-4">
-            {listings.length} PGs Available in Ahmedabad
+            {listings.length} PGs Available
           </h2>
 
           {listings.map((pg) => (

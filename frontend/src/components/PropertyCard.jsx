@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export function PropertyCard({pg}) {
-    const [chatOpen, isChatOpen] = useState(false);
-    function handleChat() {}
+export function PropertyCard({ pg }) {
+  const [chatOpen, isChatOpen] = useState(false);
+  function handleChat() {}
   return (
-    <div
-      className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
-    >
+    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
       <div className="grid grid-cols-1 sm:grid-cols-4">
         <img
           src={pg.imageURL}
