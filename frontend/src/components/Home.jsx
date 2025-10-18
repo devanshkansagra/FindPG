@@ -22,13 +22,7 @@ export default function Home() {
   const { data, error } = useFetch(url);
   async function handleSearchCity(e) {
     e.preventDefault();
-    try {
-      if (data) {
-        navigate(`/search?city=${cityName}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    navigate(`/search?city=${cityName}`);
   }
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -48,12 +42,6 @@ export default function Home() {
               onChange={(e) => setCityName(e.target.value)}
               className="w-full sm:w-72 border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-red-500"
             />
-            <select className="w-full sm:w-48 border border-gray-300 rounded-md px-3 py-2 text-sm">
-              <option>Any Occupancy</option>
-              <option>Single</option>
-              <option>Double</option>
-              <option>Triple</option>
-            </select>
             <button
               onClick={handleSearchCity}
               className="bg-red-600 text-white px-6 py-2 rounded-md font-medium hover:bg-red-700"
