@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import boysPg from '../assets/boys-pg.jpg';
 import girlsPg from '../assets/girls-pg.jpg';
 import studentFriendly from '../assets/student-friendly-pg.jpg';
@@ -11,9 +11,25 @@ import forProfessionals from '../assets/for_professionals.png';
 
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from './Navbar';
+import { useFetch } from '../hooks/useFetch';
 
-export default function LandingPage() {
+export default function Home() {
   const navigate = useNavigate();
+
+  const [cityName, setCityName] = useState('');
+
+  const url = `${import.meta.env.VITE_SERVER_ORIGIN}/api/property/search?city=${cityName}`;
+  const { data, error } = useFetch(url);
+  async function handleSearchCity(e) {
+    e.preventDefault();
+    try {
+      if (data) {
+        navigate(`/search?city=${cityName}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
@@ -29,6 +45,7 @@ export default function LandingPage() {
             <input
               type="text"
               placeholder="Enter city or area"
+              onChange={(e) => setCityName(e.target.value)}
               className="w-full sm:w-72 border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-red-500"
             />
             <select className="w-full sm:w-48 border border-gray-300 rounded-md px-3 py-2 text-sm">
@@ -37,7 +54,10 @@ export default function LandingPage() {
               <option>Double</option>
               <option>Triple</option>
             </select>
-            <button className="bg-red-600 text-white px-6 py-2 rounded-md font-medium hover:bg-red-700">
+            <button
+              onClick={handleSearchCity}
+              className="bg-red-600 text-white px-6 py-2 rounded-md font-medium hover:bg-red-700"
+            >
               Search
             </button>
           </div>

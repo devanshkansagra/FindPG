@@ -1,23 +1,23 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import AgentDashboard from './components/AgentDashboard';
 import Explore from './components/Explore';
-import { Navbar } from './components/Navbar';
 import PrivateRoute from './utils/PrivateRoutes';
 import AddPG from './components/AddPG';
-import Cookie from './helpers/Cookie';
 import Chat from './components/Chat';
+import Search from './components/Search';
+import Home from './components/Home';
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/search" element={<Search />} />
           <Route
             path="/AgentDashboard"
             element={
