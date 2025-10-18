@@ -60,3 +60,21 @@ export async function fetchProperties(req, res) {
     res.status(500).send(new ApiError(500, error));
   }
 }
+
+export async function searchProperty(req, res) {
+  const { city } = req.query;
+  try {
+    const properties = await Property.find({ location: city });
+    if (properties) {
+      res.status(200).send(
+        new ApiResponse({
+          statusCode: 200,
+          message: 'Properties fetched successfully',
+          data: properties,
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
