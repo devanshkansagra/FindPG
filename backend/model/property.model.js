@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 const propertySchema = new Schema({
   agentId: {
     type: Schema.Types.ObjectId,
-    ref: 'agents',
+    ref: 'users',
     required: true,
   },
   propertyName: {

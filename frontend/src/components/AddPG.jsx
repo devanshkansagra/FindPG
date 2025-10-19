@@ -5,7 +5,7 @@ import Cookie from '../helpers/Cookie';
 
 export default function AddPG() {
   const [propertyName, setPropertyName] = useState('');
-  const [propertyType, setPropertyType] = useState('');
+  const [propertyType, setPropertyType] = useState('PG');
   const [price, setPrice] = useState(0);
   const [deposit, setDeposit] = useState(0);
   const [location, setLocation] = useState('');

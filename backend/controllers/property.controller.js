@@ -64,15 +64,20 @@ export async function fetchProperties(req, res) {
 export async function searchProperty(req, res) {
   const { city } = req.query;
   try {
-    const properties = await Property.find({ location: city });
-    if (properties) {
-      res.status(200).send(
-        new ApiResponse({
-          statusCode: 200,
-          message: 'Properties fetched successfully',
-          data: properties,
-        })
-      );
+    if (city === '') {
+      const response = await Property.find().select();
+      res.status(200).send(new ApiResponse({ statusCode: 200, data: response }));
+    } else {
+      const properties = await Property.find({ location: city });
+      if (properties) {
+        res.status(200).send(
+          new ApiResponse({
+            statusCode: 200,
+            message: 'Properties fetched successfully',
+            data: properties,
+          })
+        );
+      }
     }
   } catch (error) {
     console.log(error);

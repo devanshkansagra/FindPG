@@ -20,8 +20,8 @@ export default function SignupPage() {
       body: JSON.stringify(data),
       credentials: 'include',
     });
-
-    if (res.ok && res.status === 201) {
+    const response = await res.json();
+    if (response.statusCode === 201) {
       navigate('/');
     }
   }

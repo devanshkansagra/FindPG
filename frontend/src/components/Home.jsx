@@ -12,14 +12,18 @@ import forProfessionals from '../assets/for_professionals.png';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { useFetch } from '../hooks/useFetch';
+import useDebounce from '../hooks/useDebounce';
 
 export default function Home() {
   const navigate = useNavigate();
 
   const [cityName, setCityName] = useState('');
+  const city = useDebounce(cityName);
+  const [showResults, setShowResults] = useState(false);
 
-  const url = `${import.meta.env.VITE_SERVER_ORIGIN}/api/property/search?city=${cityName}`;
-  const { data, error } = useFetch(url);
+  const url = `${import.meta.env.VITE_SERVER_ORIGIN}/api/property/search?city=${city}`;
+  const { data } = useFetch(url);
+  const cities = data?.data ?? [];
   async function handleSearchCity(e) {
     e.preventDefault();
     navigate(`/search?city=${cityName}`);
@@ -36,15 +40,31 @@ export default function Home() {
           </h1>
           <p className="mt-2 text-gray-600">Search PGs & Hostels near you</p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <input
-              type="text"
-              placeholder="Enter city or area"
-              onChange={(e) => setCityName(e.target.value)}
-              className="w-full sm:w-72 border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-red-500"
-            />
+            <div className="relative w-full sm:w-auto">
+              <div className="flex items-start">
+                <input
+                  type="text"
+                  placeholder="Enter city or area"
+                  onChange={(e) => setCityName(e.target.value)}
+                  onFocus={() => setShowResults(true)}
+                  onBlur={() => setShowResults(false)}
+                  className="w-full sm:w-72 border border-gray-300  rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+              {showResults && (
+                <div className="absolute left-0 top-full mt-2 w-full sm:w-72 bg-white text-left rounded-md shadow-md max-h-56 overflow-y-auto z-50">
+                  {cities.map((city) => (
+                    <div key={city._id} className="hover:bg-gray-100 p-3 cursor-pointer">
+                      {city?.location}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <button
               onClick={handleSearchCity}
-              className="bg-red-600 text-white px-6 py-2 rounded-md font-medium hover:bg-red-700"
+              className="bg-red-600 text-white px-6 py-2 rounded-md mx-2 font-medium hover:bg-red-700"
             >
               Search
             </button>

@@ -3,14 +3,36 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new Schema({
-  role: String,
-  name: String,
-  email: String,
-  phone: Number,
-  password: String,
-  accessToken: String,
-  refreshToken: String,
-  id_token: String,
+  role: {
+    type: String,
+    enum: ['agent', 'tenant'],
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  accessToken: {
+    type: String,
+  },
+  refreshToken: {
+    type: String,
+  },
+  id_token: {
+    type: String,
+  },
 });
 
 userSchema.pre('save', async function (next) {
@@ -42,6 +64,21 @@ userSchema.methods.generateRefreshToken = function () {
     process.env.REFRESH_TOKEN_SECRET,
     {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
+
+userSchema.methods.generateIdToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
   );
 };

@@ -16,7 +16,7 @@ export async function login(req, res) {
     if (!isPasswordCorrect) {
       throw new ApiError(401, 'Unauthorized');
     }
-    const { accessToken, refreshToken } = await generateAuthTokens(user);
+    const { accessToken, refreshToken, id_token } = await generateAuthTokens(user);
     const options = {
       httpOnly: false,
       secure: false,
@@ -26,6 +26,7 @@ export async function login(req, res) {
     res
       .status(200)
       .cookie('accessToken', accessToken, options)
+      .cookie('id_token', id_token, options)
       .cookie('refreshToken', refreshToken, {
         httpOnly: false,
         secure: false,
@@ -52,6 +53,10 @@ export async function signup(req, res) {
   }
   const tel = Number.parseInt(phone);
   try {
+    const user = await User.findOne({ email });
+    if (user) {
+      throw new ApiError(409, 'User already exists');
+    }
     const newUser = await User.create({
       role,
       name,
@@ -59,7 +64,7 @@ export async function signup(req, res) {
       phone: tel,
       password,
     });
-    const { accessToken, refreshToken } = await generateAuthTokens(newUser);
+    const { accessToken, refreshToken, id_token } = await generateAuthTokens(newUser);
     const response = await newUser.save();
 
     const options = {
@@ -73,6 +78,7 @@ export async function signup(req, res) {
       res
         .status(200)
         .cookie('accessToken', accessToken, options)
+        .cookie('id_token', id_token, options)
         .cookie('refreshToken', refreshToken, {
           httpOnly: false,
           secure: false,
@@ -83,7 +89,9 @@ export async function signup(req, res) {
         .send(new ApiResponse({ statusCode: 201, message: 'New User Created' }));
     }
   } catch (error) {
-    res.status(error.statusCode).send(new ApiError(error.statusCode, error.message));
+    const statusCode = error.statusCode;
+    const message = error.message;
+    res.status(statusCode).send(new ApiError(statusCode, message));
   }
 }
 export async function logout(req, res) {
