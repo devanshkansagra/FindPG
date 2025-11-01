@@ -9,5 +9,6 @@ export async function sendEmail(mailOptions) {
     },
   });
 
-  await transporter.sendMail(mailOptions);
+  const sendResponse = await transporter.sendMail(mailOptions);
+  return sendResponse;
 }

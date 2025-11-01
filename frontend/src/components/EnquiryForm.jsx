@@ -1,14 +1,65 @@
+import { useSearchParams } from 'react-router-dom';
 import AgentDashboardNavbar from './AgentDashboardNavbar';
 import { useState } from 'react';
+import { useFetch } from '../hooks/useFetch';
+import Cookie from '../helpers/Cookie';
 
 export default function EnquiryForm() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
-  const [preferredLocation, setPreferredLocation] = useState('');
+  const [propertyName, setPropertyName] = useState('');
   const [propertyType, setPropertyType] = useState('');
   const [budget, setBudget] = useState('');
+
+  const [searchParams] = useSearchParams();
+  const propertyId = searchParams.get('id');
+
+  const formData = new FormData();
+  formData.append('fullName', fullName);
+  formData.append('email', email);
+  formData.append('phone', phone);
+  formData.append('message', message);
+  formData.append('propertyName', propertyName);
+  formData.append('budget', budget);
+  formData.append('propertyType', propertyType);
+
+  const accessToken = Cookie.get('accessToken');
+
+  const data = {
+    fullName,
+    userEmail: email,
+    phone,
+    message,
+    propertyName,
+    propertyType,
+    budget,
+    propertyId,
+  };
+  async function sendEnquiry(e) {
+    e.preventDefault();
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_ORIGIN}/api/enquiry/send`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+        credentials: 'include',
+      });
+
+      const data2 = await res.json();
+
+      if (data2.statusCode === 200) {
+        window.alert(data2.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -56,12 +107,12 @@ export default function EnquiryForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Preferred Location</label>
+              <label className="block text-sm font-medium text-gray-700">Property Name</label>
               <input
                 type="text"
-                placeholder="City / Area"
-                value={preferredLocation}
-                onChange={(e) => setPreferredLocation(e.target.value)}
+                placeholder="Property Name"
+                value={propertyName}
+                onChange={(e) => setPropertyName(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -108,6 +159,7 @@ export default function EnquiryForm() {
 
             <div className="pt-4">
               <button
+                onClick={sendEnquiry}
                 type="button"
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold transition"
               >

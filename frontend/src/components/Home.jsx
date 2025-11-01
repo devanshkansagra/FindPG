@@ -44,7 +44,8 @@ export default function Home() {
               <div className="flex items-start">
                 <input
                   type="text"
-                  placeholder="Enter city or area"
+                  value={cityName}
+                  placeholder="Enter city"
                   onChange={(e) => setCityName(e.target.value)}
                   onFocus={() => setShowResults(true)}
                   onBlur={() => setShowResults(false)}
@@ -54,7 +55,15 @@ export default function Home() {
               {showResults && (
                 <div className="absolute left-0 top-full mt-2 w-full sm:w-72 bg-white text-left rounded-md shadow-md max-h-56 overflow-y-auto z-50">
                   {cities.map((city) => (
-                    <div key={city._id} className="hover:bg-gray-100 p-3 cursor-pointer">
+                    <div
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setCityName(city.location);
+                        setShowResults(false);
+                      }}
+                      key={city._id}
+                      className="hover:bg-gray-100 p-3 cursor-pointer"
+                    >
                       {city?.location}
                     </div>
                   ))}

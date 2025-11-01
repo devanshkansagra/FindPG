@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function PropertyCard({ pg }) {
   const [chatOpen, isChatOpen] = useState(false);
+  const navigate = useNavigate();
   function handleChat() {}
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
@@ -48,8 +50,11 @@ export function PropertyCard({ pg }) {
             <button className="bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700">
               View Details.
             </button>
-            <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200">
-              Contact Owner
+            <button
+              onClick={() => navigate(`/enquiry?id=${pg._id}`)}
+              className="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200"
+            >
+              Enquiry
             </button>
             <button
               onClick={handleChat}

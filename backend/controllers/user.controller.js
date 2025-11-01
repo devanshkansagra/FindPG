@@ -16,6 +16,9 @@ export async function login(req, res) {
     if (!isPasswordCorrect) {
       throw new ApiError(401, 'Unauthorized');
     }
+    if (user.role !== role) {
+      throw new ApiError(404, 'User not found');
+    }
     const { accessToken, refreshToken, id_token } = await generateAuthTokens(user);
     const options = {
       httpOnly: false,
