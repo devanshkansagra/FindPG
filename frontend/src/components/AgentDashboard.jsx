@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Plus, List, MessageSquare } from 'lucide-react';
 import AgentDashboardNavbar from './AgentDashboardNavbar';
+import { useFetch } from '../hooks/useFetch';
+import Cookie from '../helpers/Cookie';
 
 export default function AgentDashboard() {
+  const accessToken = Cookie.get('accessToken');
+  const { data: enquiries } = useFetch(`${import.meta.env.VITE_SERVER_ORIGIN}/api/enquiry/get`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  const enquiryRecords = enquiries?.data ?? [];
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <AgentDashboardNavbar />
@@ -49,7 +60,17 @@ export default function AgentDashboard() {
         <div className="bg-white rounded-2xl shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Recent Inquiries</h2>
           <ul className="divide-y divide-gray-200">
-            <li className="py-4 flex justify-between">
+            {enquiryRecords.map((enquiry) => (
+              <li className="py-4 flex justify-between" key={enquiry._id}>
+                <span className="text-gray-700">
+                  {enquiry.fullName} - Interested in {enquiry.propertyType}
+                </span>
+                <a href="#" className="text-red-600 text-sm font-medium hover:underline">
+                  View
+                </a>
+              </li>
+            ))}
+            {/* <li className="py-4 flex justify-between">
               <span className="text-gray-700">Rahul Sharma - Interested in Boys PG</span>
               <a href="#" className="text-red-600 text-sm font-medium hover:underline">
                 View
@@ -66,7 +87,7 @@ export default function AgentDashboard() {
               <a href="#" className="text-red-600 text-sm font-medium hover:underline">
                 View
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 

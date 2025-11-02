@@ -2,7 +2,7 @@ import express from 'express';
 import userRoutes from './user.routes.js';
 import propertyRoutes from './property.routes.js';
 import authRoutes from './auth.routes.js';
-import enquiryRoutes from './enquiryRoutes.js';
+import enquiryRoutes from './enquiry.routes.js';
 
 const api = express.Router();
 

@@ -12,9 +12,6 @@ export default function Explore() {
   const [toast, setToast] = useState({ show: false, message: '' }); // Toast state
   const [chatOpen, setChatOpen] = useState(false);
 
-  async function handleChat(e) {
-    setChatOpen(true);
-  }
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />

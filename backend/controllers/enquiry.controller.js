@@ -3,6 +3,7 @@ import Property from '../model/property.model.js';
 import User from '../model/user.model.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
+import { ApiError } from '../utils/ApiError.js';
 
 export async function sendEnquiry(req, res) {
   const { fullName, userEmail, phone, message, propertyName, propertyType, budget, propertyId } =
@@ -105,4 +106,19 @@ export async function sendEnquiry(req, res) {
   }
 }
 
-export async function getEnquiries(req, res) {}
+export async function getEnquiries(req, res) {
+  const { _id } = req.user;
+
+  try {
+    const enquiries = await Enquiry.find({ agentId: _id });
+    res.status(200).send(
+      new ApiResponse({
+        statusCode: 200,
+        message: 'Enquiries fetched successfully',
+        data: enquiries,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
