@@ -92,3 +92,19 @@ export async function searchProperty(req, res) {
     console.log(error);
   }
 }
+
+export async function getProperty(req, res) {
+  const { id } = req.params;
+  try {
+    const response = await Property.findById(id);
+    if (response) {
+      await res.status(200).send(
+        new ApiResponse({
+          statusCode: 200,
+          message: 'Property fetched successfully',
+          data: response,
+        })
+      );
+    }
+  } catch (error) {}
+}

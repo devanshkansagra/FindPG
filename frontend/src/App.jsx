@@ -9,6 +9,7 @@ import Chat from './components/Chat';
 import Search from './components/Search';
 import Home from './components/Home';
 import EnquiryForm from './components/EnquiryForm';
+import { ViewDetails } from './components/ViewDetails';
 function App() {
   return (
     <>
@@ -48,6 +49,14 @@ function App() {
             element={
               <PrivateRoute allowedRoles={['tenant']}>
                 <EnquiryForm />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/details/:id"
+            element={
+              <PrivateRoute>
+                <ViewDetails />
               </PrivateRoute>
             }
           />
