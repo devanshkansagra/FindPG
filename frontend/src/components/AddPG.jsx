@@ -17,6 +17,7 @@ export default function AddPG() {
   const [ownerPhone, setOwnerPhone] = useState(0);
   const [email, setEmail] = useState('');
   const [image, setImage] = useState('');
+  const [fileList, setFileList] = useState([]);
 
   const navigate = useNavigate();
 
@@ -33,13 +34,14 @@ export default function AddPG() {
       formData.append('address', address);
 
       amenities.forEach((a) => formData.append('amenities[]', a));
-      rules.forEach((r) => formData.append('rules[]', r));
+      fileList.forEach((f) => formData.append('fileList', f));
 
       formData.append('agentName', agentName);
       formData.append('phone', phone);
       formData.append('ownerPhone', ownerPhone);
       formData.append('email', email);
       formData.append('image', image);
+      rules.forEach((r) => formData.append('rules[]', r));
 
       const accessToken = Cookie.get('accessToken');
       const res = await fetch(import.meta.env.VITE_SERVER_ORIGIN + '/api/property/add', {
@@ -81,6 +83,11 @@ export default function AddPG() {
   const handleFileSelected = (event) => {
     const file = event.target.files[0];
     setImage(file);
+  };
+
+  const handleMultipleFiles = (event) => {
+    const files = Array.from(event.target.files);
+    setFileList(files);
   };
   return (
     <>
@@ -196,7 +203,9 @@ export default function AddPG() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Upload Images</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Upload Property Image (JPG, PNG)
+              </label>
               <input
                 type="file"
                 multiple
@@ -204,9 +213,19 @@ export default function AddPG() {
                 className="mt-2 block w-full text-gray-700 border border-gray-300 rounded-lg cursor-pointer focus:ring-2 focus:ring-blue-500"
                 onChange={handleFileSelected}
               />
-              <p className="mt-1 text-sm text-gray-500">
-                You can upload multiple images (JPG, PNG).
-              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Upload Additional Images (JPG, PNG)
+              </label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                className="mt-2 block w-full text-gray-700 border border-gray-300 rounded-lg cursor-pointer focus:ring-2 focus:ring-blue-500"
+                onChange={handleMultipleFiles}
+              />
+              <p className="mt-1 text-sm text-gray-500">You can upload multiple images.</p>
             </div>
 
             {/* Contact Info */}

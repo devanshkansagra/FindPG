@@ -13,7 +13,15 @@ const upload = multer({ storage: storage });
 
 const propertyRoutes = Router();
 
-propertyRoutes.post('/add', verify, upload.single('image'), addProperty);
+propertyRoutes.post(
+  '/add',
+  verify,
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'fileList', maxCount: 4 },
+  ]),
+  addProperty
+);
 propertyRoutes.get('/get', fetchProperties);
 propertyRoutes.get('/search', searchProperty);
 

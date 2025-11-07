@@ -70,24 +70,6 @@ export default function AgentDashboard() {
                 </a>
               </li>
             ))}
-            {/* <li className="py-4 flex justify-between">
-              <span className="text-gray-700">Rahul Sharma - Interested in Boys PG</span>
-              <a href="#" className="text-red-600 text-sm font-medium hover:underline">
-                View
-              </a>
-            </li>
-            <li className="py-4 flex justify-between">
-              <span className="text-gray-700">Priya Verma - Wants Single Room with Meals</span>
-              <a href="#" className="text-red-600 text-sm font-medium hover:underline">
-                View
-              </a>
-            </li>
-            <li className="py-4 flex justify-between">
-              <span className="text-gray-700">Amit Singh - Looking near IT Park</span>
-              <a href="#" className="text-red-600 text-sm font-medium hover:underline">
-                View
-              </a>
-            </li> */}
           </ul>
         </div>
 

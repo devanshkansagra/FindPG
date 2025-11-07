@@ -4,7 +4,8 @@ import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 
 export async function addProperty(req, res) {
-  const file = req.file;
+  const file = req.files?.image?.[0];
+  const fileList = req.files?.fileList || [];
   const {
     propertyName,
     propertyType,
@@ -22,9 +23,16 @@ export async function addProperty(req, res) {
 
   const agentId = req.user._id;
   try {
-    await uploadFile(file.buffer, file.originalname, file.mimetype);
+    await uploadFile(file?.buffer, file?.originalname, file?.mimetype);
 
-    const imageURL = await getFile(file.originalname);
+    fileList.forEach(async (file) => {
+      await uploadFile(file.buffer, file.originalname, file.mimetype);
+    });
+
+    const imageURL = await getFile(file?.originalname);
+    const additionalImagesUrls = await Promise.all(
+      fileList.map(async (file) => await getFile(file.originalname))
+    );
     const newProperty = Property.create({
       agentId,
       propertyName,
@@ -40,6 +48,7 @@ export async function addProperty(req, res) {
       ownerPhone,
       email,
       imageURL,
+      additionalImages: additionalImagesUrls,
     });
 
     const response = (await newProperty).save();

@@ -57,6 +57,9 @@ const propertySchema = new Schema({
   imageURL: {
     type: String,
   },
+  additionalImages: {
+    type: [String],
+  },
 });
 
 const Property = model('properties', propertySchema);
