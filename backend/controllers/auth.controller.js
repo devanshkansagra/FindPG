@@ -1,6 +1,6 @@
 import User from '../model/user.model.js';
-import { ApiError } from '../utils/ApiError.js';
-import { ApiResponse } from '../utils/ApiResponse.js';
+import { ApiError } from '../handlers/ApiError.js';
+import { ApiResponse } from '../handlers/ApiResponse.js';
 import jwt from 'jsonwebtoken';
 export async function refreshAccessToken(req, res) {
   try {

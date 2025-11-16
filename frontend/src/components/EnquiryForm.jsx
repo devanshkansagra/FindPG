@@ -3,6 +3,7 @@ import AgentDashboardNavbar from './AgentDashboardNavbar';
 import { useState } from 'react';
 import { useFetch } from '../hooks/useFetch';
 import Cookie from '../helpers/Cookie';
+import { Navbar } from './Navbar';
 
 export default function EnquiryForm() {
   const [fullName, setFullName] = useState('');
@@ -63,7 +64,7 @@ export default function EnquiryForm() {
 
   return (
     <>
-      <AgentDashboardNavbar />
+      <Navbar />
       <div className="flex justify-center p-8 bg-gray-50 min-h-screen">
         <div className="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-lg">
           <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
