@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export function useFetch(url, options = {}) {
+export function useFetch(url, options = {}, other = null) {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
@@ -18,7 +18,7 @@ export function useFetch(url, options = {}) {
       }
     }
     fetchData();
-  }, [url, JSON.stringify(options)]);
+  }, [url, JSON.stringify(options), other]);
 
   return { data, error };
 }

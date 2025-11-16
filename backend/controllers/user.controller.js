@@ -1,7 +1,7 @@
 import User from '../model/user.model.js';
-import { ApiError } from '../utils/ApiError.js';
-import { ApiResponse } from '../utils/ApiResponse.js';
-import { generateAuthTokens } from '../utils/generateAuthTokens.js';
+import { ApiError } from '../handlers/ApiError.js';
+import { ApiResponse } from '../handlers/ApiResponse.js';
+import { generateAuthTokens } from '../handlers/generateAuthTokens.js';
 
 export async function login(req, res) {
   const { email, password, role } = req.body;

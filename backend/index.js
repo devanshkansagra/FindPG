@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import { connect } from './config/connect.js';
 import api from './routes/api.js';
 import { Server } from 'socket.io';
+import initSocket from './config/socket.js';
+import { initSubscriber } from './services/notificationSubscriber.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -33,11 +35,11 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
   },
 });
-io.on('connection', (socket) => {
-  console.log('New User connected: with: ', socket.id);
-});
 
 app.use('/api', api);
+
+initSocket(io);
+initSubscriber(io);
 
 server.listen(port, function () {
   console.log('Server started');

@@ -1,7 +1,7 @@
-import { uploadFile, getFile } from '../utils/AWS.js';
+import { uploadFile, getFile } from '../handlers/AWS.js';
 import Property from '../model/property.model.js';
-import { ApiError } from '../utils/ApiError.js';
-import { ApiResponse } from '../utils/ApiResponse.js';
+import { ApiError } from '../handlers/ApiError.js';
+import { ApiResponse } from '../handlers/ApiResponse.js';
 
 export async function addProperty(req, res) {
   const file = req.files?.image?.[0];

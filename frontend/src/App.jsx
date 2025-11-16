@@ -10,6 +10,7 @@ import Search from './components/Search';
 import Home from './components/Home';
 import EnquiryForm from './components/EnquiryForm';
 import { ViewDetails } from './components/ViewDetails';
+import Notifications from './components/Notifications';
 function App() {
   return (
     <>
@@ -57,6 +58,15 @@ function App() {
             element={
               <PrivateRoute>
                 <ViewDetails />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/notifications"
+            element={
+              <PrivateRoute>
+                <Notifications />
               </PrivateRoute>
             }
           />
