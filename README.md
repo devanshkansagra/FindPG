@@ -1,6 +1,5 @@
 # FindPG : Find Your Perfect Hostel or PG Nearby!
-A modern platform that helps students and working professionals quickly discover nearby hostels and PG accommodations. Users can search, filter, and compare PGs based on location, price, and amenities. Built with React and styled with Tailwind CSS for a responsive and elegant UI.
-
+A modern platform that helps students and working professionals quickly discover nearby hostels and PG accommodations. Users can search, filter, and compare PGs based on location, price, and amenities.
 
 ## 📜 Features
 
@@ -29,13 +28,13 @@ A modern platform that helps students and working professionals quickly discover
 - Mobile-friendly responsive design.
 - Interactive maps integration for nearby PG search.
 - Secure profile management for both tenants and agents.
+- Interactive In-App Notification system
 
 ## 🛠️ Tech Stack
 
 ### Client:
 
 - React
-- Zustand
 - Tailwind CSS
 - Socket.io
 
@@ -44,6 +43,7 @@ A modern platform that helps students and working professionals quickly discover
 - Node.js
 - Express
 - Socket.io
+- Redis
 
 ### Database & Storage:
 
@@ -76,9 +76,9 @@ A modern platform that helps students and working professionals quickly discover
     ORIGIN=http://localhost:5173 # (or your frontend deployment url)
     SERVER=http://localhost:4000 # (or your backend deployment url)
     MONGDB_URI="mongodb://localhost:27017/FindPG"  # (or MongDB Atlas URL)
-    ACCESS_TOKEN_SECRET=3f8d1c7e-9b2a-4e6e-8c1a-7a5e2d4b9c3f #(Recommended to generate random)
+    ACCESS_TOKEN_SECRET= 
     ACCESS_TOKEN_EXPIRY=3599s
-    REFRESH_TOKEN_SECRET=68ceaf35-3cd8-8321-b6b3-9572e0df983f #(Recommended to generate random)
+    REFRESH_TOKEN_SECRET=
     REFRESH_TOKEN_EXPIRY=7d
     AWS_BUCKET_NAME=
     AWS_BUCKET_REGION=
@@ -86,6 +86,7 @@ A modern platform that helps students and working professionals quickly discover
     AWS_SECRET_ACCESS_KEY=
     GMAIL_USER=
     GMAIL_APP_PASSWORD=
+    REDIS_URL=redis://127.0.0.1:6379 # (or your redis deployment url)
     ```
 
     - Frontend
@@ -101,3 +102,23 @@ A modern platform that helps students and working professionals quickly discover
     cd backend
     npm run dev
     ```
+
+### Install Redis through Docker
+- If you do not have Redis installed on your system. Try installing it with a Docker container
+- To install run this command
+
+```bash
+docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Commit your changes (`git commit -m "Added new feature"`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a Pull Request
+
+Made by: Devansh Kansagra - dkansagra04@gmail.com
