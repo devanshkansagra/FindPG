@@ -4,6 +4,7 @@ export async function create(payload) {
   return Notification.create({
     recipientId: payload.recipientId,
     actorId: payload.actorId,
+    title: payload.title,
     message: payload.message,
     data: payload.data,
     read: payload.read,

@@ -7,8 +7,8 @@ import image from '../assets/noNotifications.png';
 
 function Notifications() {
   const accessToken = Cookie.get('accessToken');
-  const [checked, setChecked] = useState(false);
-  const [read, setRead] = useState(false);
+  const [checkedIds, setCheckedIds] = useState([]);
+  const [read, setRead] = useState(null);
   const { data, error } = useFetch(
     import.meta.env.VITE_SERVER_ORIGIN + '/api/notifications/get',
     {
@@ -23,7 +23,7 @@ function Notifications() {
 
   async function handleNotificationRead(notificationId) {
     try {
-      const res = await fetch(
+      await fetch(
         import.meta.env.VITE_SERVER_ORIGIN + `/api/notifications/read/${notificationId}`,
         {
           method: 'POST',
@@ -32,7 +32,21 @@ function Notifications() {
           },
         }
       );
+      setRead(notificationId);
     } catch (error) {}
+  }
+
+  function handleCheckBoxChange(notificationId) {
+    setCheckedIds((prev) =>
+      prev.includes(notificationId)
+        ? prev.filter((id) => id !== notificationId)
+        : [...prev, notificationId]
+    );
+  }
+
+  function handleCheck(notificationId) {
+    handleNotificationRead(notificationId);
+    setCheckedIds((prev) => prev.filter((id) => id !== notificationId));
   }
 
   return (
@@ -47,38 +61,34 @@ function Notifications() {
                 !notification.read ? (
                   <div
                     key={notification._id}
-                    className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow flex justify-between"
+                    className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow"
                   >
-                    <div className="flex">
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={(event) => setChecked(event.target.checked)}
-                      />
-                      <p className="mx-2 text-gray-600">{notification.message}</p>
+                    <div className="flex justify-between">
+                      <div className="flex">
+                        <input
+                          type="checkbox"
+                          checked={checkedIds.includes(notification._id)}
+                          onChange={() => handleCheckBoxChange(notification._id)}
+                        />
+                        <p className="mx-2 text-gray-600">{notification.title}</p>
+                      </div>
+                      <div>
+                        {checkedIds.includes(notification._id) && (
+                          <div onClick={() => handleCheck(notification._id)}>
+                            <Check className="bg-gray-200 rounded-md hover:cursor-pointer" />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      {checked ? (
-                        <div onClick={() => handleNotificationRead(notification._id)}>
-                          <Check
-                            onClick={() => setRead(true)}
-                            className="bg-gray-200 rounded-md hover:cursor-pointer"
-                          />
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
+                    <p className="mx-4">{notification.message}</p>
                   </div>
-                ) : (
-                  <></>
-                )
+                ) : null
               )}
             </div>
           </>
         ) : (
           <div className="flex justify-center mt-10">
-            <img src={image} width={300} height={300} />
+            <img src={image} width={300} height={300} alt="No notifications" />
           </div>
         )}
       </div>
