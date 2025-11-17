@@ -30,7 +30,8 @@ export async function sendEnquiry(req, res) {
       const payload = {
         recipientId: agentId,
         actorId: userId,
-        message: 'New Enquiry alert',
+        title: 'New Enquiry alert',
+        message: `You have got a new enquiry for ${propertyName} from ${fullName}`,
         delivered: true,
       };
       await publishNotification(payload);
