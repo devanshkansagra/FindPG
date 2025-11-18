@@ -7,7 +7,7 @@ export async function getNotifications(req, res) {
   const { _id } = req.user;
   try {
     const userNotifications = await getUserNotifications(_id);
-    res.status(200).send(
+    res.status(200).json(
       new ApiResponse({
         statusCode: 200,
         message: 'Notifications fetched successfully',
@@ -15,7 +15,7 @@ export async function getNotifications(req, res) {
       })
     );
   } catch (error) {
-    res.send(new ApiError(500, error));
+    res.json(new ApiError(500, error));
   }
 }
 
@@ -26,7 +26,7 @@ export async function readNotification(req, res) {
   try {
     await markAsRead(id, userId);
 
-    res.status(200).send(
+    res.status(200).json(
       new ApiResponse({
         statusCode: 200,
         message: 'Notification read',

@@ -37,14 +37,14 @@ export async function login(req, res) {
         maxAge: 1000 * 60 * 60 * 24 * 7,
       })
       .cookie('role', role, options)
-      .send(
+      .json(
         new ApiResponse({
           statusCode: 200,
           message: 'User Login Successful',
         })
       );
   } catch (error) {
-    res.status(error.statusCode).send(new ApiError(error.statusCode, error.message));
+    res.status(error.statusCode).json(new ApiError(error.statusCode, error.message));
   }
 }
 
@@ -89,12 +89,12 @@ export async function signup(req, res) {
           maxAge: 1000 * 60 * 60 * 24 * 7,
         })
         .cookie('role', role, options)
-        .send(new ApiResponse({ statusCode: 201, message: 'New User Created' }));
+        .json(new ApiResponse({ statusCode: 201, message: 'New User Created' }));
     }
   } catch (error) {
     const statusCode = error.statusCode;
     const message = error.message;
-    res.status(statusCode).send(new ApiError(statusCode, message));
+    res.status(statusCode).json(new ApiError(statusCode, message));
   }
 }
 export async function logout(req, res) {
@@ -116,7 +116,7 @@ export async function logout(req, res) {
         secure: false,
         path: '/',
       })
-      .send(new ApiResponse({ statusCode: 200, message: 'Logout Successful' }));
+      .json(new ApiResponse({ statusCode: 200, message: 'Logout Successful' }));
   } catch (error) {
     console.log(error);
   }

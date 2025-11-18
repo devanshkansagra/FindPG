@@ -37,11 +37,11 @@ export async function refreshAccessToken(req, res) {
           res
             .status(200)
             .cookie('accessToken', newAccessToken, options)
-            .send(new ApiResponse({ statusCode: 200, message: 'Access Token updated' }));
+            .json(new ApiResponse({ statusCode: 200, message: 'Access Token updated' }));
         }
       }
     }
   } catch (error) {
-    res.status(Number.parseInt(error.statusCode)).send({ message: error.message });
+    res.status(Number.parseInt(error.statusCode)).json({ message: error.message });
   }
 }

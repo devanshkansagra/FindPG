@@ -53,20 +53,20 @@ export async function addProperty(req, res) {
 
     const response = (await newProperty).save();
     if (response) {
-      res.status(201).send(new ApiResponse({ statusCode: 201, message: 'New Property Added' }));
+      res.status(201).json(new ApiResponse({ statusCode: 201, message: 'New Property Added' }));
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send(new ApiError(500, error));
+    res.status(500).json(new ApiError(500, error));
   }
 }
 
 export async function fetchProperties(req, res) {
   try {
     const response = await Property.find().select();
-    res.status(200).send(new ApiResponse({ statusCode: 200, data: response }));
+    res.status(200).json(new ApiResponse({ statusCode: 200, data: response }));
   } catch (error) {
-    res.status(500).send(new ApiError(500, error));
+    res.status(500).json(new ApiError(500, error));
   }
 }
 
@@ -75,11 +75,11 @@ export async function searchProperty(req, res) {
   try {
     if (city === '') {
       const response = await Property.find().select();
-      res.status(200).send(new ApiResponse({ statusCode: 200, data: response }));
+      res.status(200).json(new ApiResponse({ statusCode: 200, data: response }));
     } else {
       const properties = await Property.find({ location: city });
       if (properties) {
-        res.status(200).send(
+        res.status(200).json(
           new ApiResponse({
             statusCode: 200,
             message: 'Properties fetched successfully',
@@ -98,7 +98,7 @@ export async function getProperty(req, res) {
   try {
     const response = await Property.findById(id);
     if (response) {
-      await res.status(200).send(
+      await res.status(200).json(
         new ApiResponse({
           statusCode: 200,
           message: 'Property fetched successfully',
