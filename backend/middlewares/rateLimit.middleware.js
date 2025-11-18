@@ -1,4 +1,4 @@
-import { ApiError } from "../handlers/ApiError";
+import { ApiError } from "../handlers/ApiError.js";
 
 const buckets = new Map();
 export default async function rateLimiter({ capacity, refillRate }) {
