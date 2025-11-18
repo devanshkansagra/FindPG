@@ -8,6 +8,7 @@ import api from './routes/api.js';
 import { Server } from 'socket.io';
 import initSocket from './config/socket.js';
 import { initSubscriber } from './services/notificationSubscriber.js';
+import rateLimiter from './middlewares/rateLimit.middleware.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -28,6 +29,11 @@ connect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(rateLimiter({
+  capacity: 10,
+  refillRate: 5
+}))
 
 const io = new Server(server, {
   cors: {

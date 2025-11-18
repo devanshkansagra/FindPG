@@ -107,7 +107,7 @@ export async function sendEnquiry(req, res) {
       };
 
       const response = await sendEmail(mailOptions);
-      res.send(new ApiResponse({ statusCode: 200, message: 'Email Sent Successfully' }));
+      res.json(new ApiResponse({ statusCode: 200, message: 'Email Sent Successfully' }));
     }
   } catch (error) {
     console.log(error);
@@ -119,7 +119,7 @@ export async function getEnquiries(req, res) {
 
   try {
     const enquiries = await Enquiry.find({ agentId: _id });
-    res.status(200).send(
+    res.status(200).json(
       new ApiResponse({
         statusCode: 200,
         message: 'Enquiries fetched successfully',
