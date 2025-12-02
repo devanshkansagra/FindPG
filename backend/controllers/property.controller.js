@@ -2,6 +2,9 @@ import { uploadFile, getFile } from '../handlers/AWS.js';
 import Property from '../model/property.model.js';
 import { ApiError } from '../handlers/ApiError.js';
 import { ApiResponse } from '../handlers/ApiResponse.js';
+import Review from '../model/review.model.js';
+import { publishNotification } from '../services/notificationPublisher.js';
+import User from '../model/user.model.js';
 
 export async function addProperty(req, res) {
   const file = req.files?.image?.[0];
@@ -107,4 +110,58 @@ export async function getProperty(req, res) {
       );
     }
   } catch (error) {}
+}
+
+export async function addReview(req, res) {
+  const { _id: userId, name } = req.user;
+  const { ratings, description, propertyId } = req.body;
+  try {
+    const { agentId } = await Property.findById(propertyId);
+    const review = Review.create({
+      userId,
+      propertyId,
+      name,
+      ratings,
+      description,
+      date: new Date().toISOString(),
+    });
+    const response = (await review).save();
+
+    if (response) {
+      const payload = {
+        recipientId: agentId,
+        actorId: userId,
+        title: 'New Review',
+        message: `You have got a new review from ${name}`,
+        delivered: true,
+      };
+      await publishNotification(payload);
+
+      res
+        .status(200)
+        .json(new ApiResponse({ statusCode: 200, message: 'Review Sent Successfully' }));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getReviews(req, res) {
+  const params = req.params;
+  const { id } = params;
+
+  try {
+    const reviews = await Review.find({ propertyId: id });
+    if (reviews) {
+      res.status(200).json(
+        new ApiResponse({
+          statusCode: 200,
+          message: 'Reviews fetched successfully',
+          data: reviews,
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

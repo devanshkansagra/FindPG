@@ -1,4 +1,4 @@
-import { ApiError } from "../handlers/ApiError.js";
+import { ApiError } from '../handlers/ApiError.js';
 
 const buckets = new Map();
 export default async function rateLimiter({ capacity, refillRate }) {
@@ -17,8 +17,8 @@ export default async function rateLimiter({ capacity, refillRate }) {
     bucket.tokens = Math.min(capacity, bucket.tokens + elapsed * refillRate);
     bucket.lastRefill = now;
 
-    if(bucket.tokens < 1) {
-        return res.status(429).json(new ApiError(429, "Rate Limit Reached"));
+    if (bucket.tokens < 1) {
+      return res.status(429).json(new ApiError(429, 'Rate Limit Reached'));
     }
 
     bucket.tokens -= 1;

@@ -3,6 +3,8 @@ import { useFetch } from '../hooks/useFetch';
 import Cookie from '../helpers/Cookie';
 import { Navbar } from '../components/Navbar';
 import { MapPin, Home, Shield, Phone, Mail, IndianRupee, Bed, Star } from 'lucide-react';
+import { useState } from 'react';
+import AddReviewModal from './AddReviewModal';
 
 export function ViewDetails() {
   const { id } = useParams();
@@ -12,7 +14,18 @@ export function ViewDetails() {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 
+  const { data: reviewData } = useFetch(
+    import.meta.env.VITE_SERVER_ORIGIN + `/api/property/${id}/reviews`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  const [showModal, setShowModal] = useState(false);
+
   const propertyData = data?.data ?? null;
+  const reviews = reviewData?.data ?? [];
 
   if (!propertyData)
     return (
@@ -23,29 +36,6 @@ export function ViewDetails() {
         </div>
       </>
     );
-
-  // 🔹 Sample Reviews Data
-  const sampleReviews = [
-    {
-      name: 'Amit Sharma',
-      rating: 5,
-      comment:
-        'Great place to stay! Clean rooms and friendly management. The location is perfect for students.',
-      date: 'Oct 12, 2025',
-    },
-    {
-      name: 'Sneha Patel',
-      rating: 4,
-      comment: 'Good amenities and peaceful environment. Slightly high rent but worth it.',
-      date: 'Sep 30, 2025',
-    },
-    {
-      name: 'Ravi Kumar',
-      rating: 5,
-      comment: 'Had a comfortable 6-month stay here. Would definitely recommend to others.',
-      date: 'Aug 15, 2025',
-    },
-  ];
 
   const handleApply = () => {
     alert(`You have applied for ${propertyData.propertyName}!`);
@@ -192,16 +182,29 @@ export function ViewDetails() {
 
           {/* Reviews Section */}
           <div className="mt-10 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-xl font-semibold mb-6 text-gray-800">Tenant Reviews</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-gray-800">Tenant Reviews</h2>
+              <div>{'(' + reviews.length + ') reviews'}</div>
+
+              {/* Add Review Button */}
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-4 py-2 rounded-xl bg-red-500 text-white text-sm hover:bg-red-700 transition"
+              >
+                Add Review
+              </button>
+            </div>
             <div className="space-y-6">
-              {sampleReviews.map((review, idx) => (
+              {reviews.map((review, idx) => (
                 <div
                   key={idx}
                   className="p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-sm transition"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <p className="font-semibold text-gray-800">{review.name}</p>
-                    <p className="text-sm text-gray-400">{review.date}</p>
+                    <p className="text-sm text-gray-400">
+                      {new Date(review.date).toLocaleString('en-IN').split(',')[0]}
+                    </p>
                   </div>
                   <div className="flex items-center mb-2">
                     {[...Array(5)].map((_, i) => (
@@ -209,12 +212,12 @@ export function ViewDetails() {
                         key={i}
                         size={16}
                         className={
-                          i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                          i < review.ratings ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                         }
                       />
                     ))}
                   </div>
-                  <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+                  <p className="text-gray-700 leading-relaxed">{review.description}</p>
                 </div>
               ))}
             </div>
@@ -241,7 +244,7 @@ export function ViewDetails() {
               </div>
             </div>
           </div>
-
+          {showModal && <AddReviewModal showModal={showModal} setShowModal={setShowModal} />}
           <footer className="text-center text-gray-400 text-sm mt-10 py-6">
             © {new Date().getFullYear()} FindPG — All Rights Reserved
           </footer>

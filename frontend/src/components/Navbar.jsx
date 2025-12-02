@@ -50,71 +50,88 @@ export function Navbar() {
 
   return (
     <>
-      <header className="bg-red-600 text-white py-3 sticky top-0 z-30 shadow">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
-          <div className="flex items-center space-x-2">
-            <Link to="/" className="text-2xl font-bold">
-              FindPG
-            </Link>
-          </div>
-          <nav className="hidden md:flex space-x-6 text-sm font-medium">
-            <Link to="/explore" className="hover:text-gray-200">
+      <header className="backdrop-blur-xl bg-red-600/80 text-white sticky top-0 z-50 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="text-3xl font-bold tracking-tight hover:opacity-90 transition-all select-none"
+          >
+            FindPG
+          </Link>
+
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center space-x-8 text-[15px] font-medium">
+            <Link to="/explore" className="hover:text-gray-100 transition-all">
               Explore
             </Link>
-            <a href="#" className="hover:text-gray-200">
-              Rent
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              PG
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Hostels
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Help
-            </a>
+            <a className="hover:text-gray-100 transition-all">Rent</a>
+            <a className="hover:text-gray-100 transition-all">PG</a>
+            <a className="hover:text-gray-100 transition-all">Hostels</a>
+            <a className="hover:text-gray-100 transition-all">Help</a>
           </nav>
 
+          {/* Right Section */}
           <div className="flex items-center gap-4">
+            {/* Notification Icon */}
             {accessToken && (
-              <div className="relative" ref={menuRef}>
-                <button
-                  onClick={() => navigate('/notifications')}
-                  className="relative hover:text-gray-200 hover:cursor-pointer"
-                >
-                  <Bell size={22} className="text-white" />
-                  {notifications.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-white text-red-600 text-xs font-bold rounded-full px-1">
-                      {notifications.length}
-                    </span>
-                  )}
-                </button>
-              </div>
+              <button
+                onClick={() => navigate('/notifications')}
+                className="relative p-2 rounded-full hover:bg-white/20 transition-all duration-300"
+              >
+                <Bell size={24} className="text-white drop-shadow-lg" />
+
+                {notifications.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-white text-red-600 text-[10px] font-black rounded-full px-1.5 py-0.5 shadow-md animate-pulse">
+                    {notifications.length}
+                  </span>
+                )}
+              </button>
             )}
 
+            {/* Agent Button */}
             {role === 'agent' && (
               <button
                 onClick={() => navigate('/addPG')}
-                className="bg-white text-red-600 px-4 py-1.5 rounded-md text-sm font-medium"
+                className="bg-white/90 text-red-600 px-5 py-2 rounded-full font-semibold text-sm 
+                     shadow-md hover:bg-white transition-all hover:shadow-lg active:scale-95"
               >
                 Post Property
               </button>
             )}
+
+            {/* Login / Logout */}
             {accessToken ? (
               <button
                 onClick={handleLogout}
-                className="bg-white hover:cursor-pointer text-red-600 px-4 py-1.5 rounded-md text-sm font-medium"
+                className="bg-white/90 text-red-600 px-5 py-2 rounded-full font-semibold text-sm 
+                     shadow-md hover:bg-white transition-all hover:shadow-lg active:scale-95"
               >
                 Logout
               </button>
             ) : (
               <button
                 onClick={() => navigate('/login')}
-                className="bg-white hover:cursor-pointer text-red-600 px-4 py-1.5 rounded-md text-sm font-medium"
+                className="bg-white/90 text-red-600 px-5 py-2 rounded-full font-semibold text-sm 
+                     shadow-md hover:bg-white transition-all hover:shadow-lg active:scale-95"
               >
                 Login
               </button>
             )}
+
+            {/* Mobile Menu */}
+            <button className="md:hidden p-2 rounded-lg hover:bg-white/20 transition-all">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
       </header>
